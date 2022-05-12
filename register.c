@@ -1,7 +1,7 @@
-#include "stdio.h"
-#include "stdlib.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-#define R_SIZE = 32;
+const int R_SIZE = 32;
 enum accessType
 {
   RD,
@@ -44,7 +44,7 @@ enum REGISTER_ENUM
 const int PC = 0x4000000;
 int HI = 0;
 int LO = 0;
-unsigned int R[R_SIZE]; // register
+unsigned int R[32]; // register
 unsigned int REG(unsigned int A, unsigned int V, unsigned int nRW)
 {
   if (nRW > 1 || A > 31 || A < 0) // A 0~31
@@ -73,8 +73,21 @@ void resetRegister()
   }
 }
 
+void viewRegister()
+{
+  printf("pc : %8x\n", PC);
+  printf("HI : %8x\n", HI);
+  printf("LO : %8x\n", LO);
+
+  for (int i = 0; i < R_SIZE; i++)
+  {
+    unsigned int v = REG(i, 0, RD);
+    printf("R[%d] : %8x\n", i, v); // test용으로 설정해놓은 값
+  }
+}
 int main()
 {
-  printf("register test");
+  resetRegister();
+  viewRegister();
   return 0;
 }
