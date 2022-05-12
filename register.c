@@ -75,5 +75,6 @@ void resetRegister()
 
 int main()
 {
+  printf("register test");
   return 0;
 }
