@@ -1,19 +1,43 @@
 ## Step()
 현재 op, fn에 따라 분기하는 부분만 구현됨
 ### 앞으로 구현해야  것
-* unsigned int getOp(unsigned int IR);
-* unsigned int getFn(unsigned int IR);
-* unsigned int getRs(unsigned int IR);
-* unsigned int getRt(unsigned int IR);
-* unsigned int getRd(unsigned int IR);
-* unsigned int getOffset(unsigned int IR);
 * goto STOP; 부분이 우리가 원하는 동작을 하도록 만들기
 * 각 명령어 실행
 
-```python
+```cpp
 #include "stdio.h"
-#include <iostream>
-using namespace std;
+
+
+unsigned int IR; // step() 에서 사용하는 변수
+
+unsigned int getOp(unsigned int IR) {
+	return (IR & 0xFC000000) >> 26;
+}
+unsigned int getFn(unsigned int IR) {
+	return (IR & 0x0000003F);
+}
+unsigned int getRs(unsigned int IR) {
+	return (IR & 0x03E00000) >> 21;
+}
+unsigned int getRt(unsigned int IR) {
+	return (IR & 0x001F0000) >> 16;
+}
+unsigned int getRd(unsigned int IR) {
+	return (IR & 0x0000F800) >> 11;
+}
+
+unsigned int getSh(unsigned int IR) {
+	return (IR & 0x000007C0) >> 6;
+}
+
+unsigned int getOffset(unsigned int IR) { // 16비트, I type - addi, lw, sw, lb, sb, andi, beq, blt, slti, ...
+	return (IR & 0x0000FFFF);
+}
+
+unsigned int getJOffset(unsigned int IR) { // 26비트, J type - j
+	return (IR & 0x03FFFFFF);
+}
+
 
 void step(void) {
 	unsigned int op, fn, rs, rt, rd, offset;
@@ -25,7 +49,7 @@ void step(void) {
 		fn = getFn(IR); rs = getRs(IR);
 		rt = getRt(IR); rd = getRd(IR);
 		if (fn == 32) { // ADD
-			R[rd] = ALU(ADD, R[rs], R[rt]);
+			R[rd] = ALU(ADD, R[rs], R[rt]); // ADD 는 ALU를 위해 만들어진 enum fctType 
 		}
 		else if (fn == 34) { // SUB
 
@@ -70,7 +94,7 @@ void step(void) {
 
 		}
 		else {
-			cout << "Undefined Inst...";
+			printf("Undefined Inst...");
 			goto STOP; // stop?
 		}
 	}
@@ -124,7 +148,7 @@ void step(void) {
 
 	}
 	else {
-	cout << "Undefined Inst...";
+	printf("Undefined Inst...");
 	goto STOP; 
 	}
 
