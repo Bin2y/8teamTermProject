@@ -223,3 +223,18 @@ void loading(char* bFileName) {
 	
 }
 
+// 9주차 강의 자료에 있는 코드
+void setPC(unsigned int val) {
+	PC = val;
+	return;
+}
+
+void jump(int address) {
+	if (address < 0x400000 || address >= 0x10000000) {
+		printf("[ERROR] 잘못된 주소 입력 (Program 주소는 0x400000 ~ 0x10000000)\n");
+	}
+	else {
+		printf("[Jump program] PC 주소: 0x%X\n", address);
+		setPC(address);
+	}
+}
