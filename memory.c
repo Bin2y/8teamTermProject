@@ -50,3 +50,13 @@ int MEM(unsigned int A, int V, int nRW, int S)
 
   return 0;
 }
+
+void resetMem(void)
+{
+	int i;
+	for (i = 0; i < 0x100000; i++) {
+		progMEM[i] = 0;
+		dataMEM[i] = 0;
+		stackMEM[i] = 0;
+	}
+}
