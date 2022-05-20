@@ -48,40 +48,40 @@ void step(void) {
 		fn = getFn(IR); rs = getRs(IR);
 		rt = getRt(IR); rd = getRd(IR);
 		if (fn == 32) { // ADD
-			Add(rd, rs, rt);
+			add(rd, rs, rt);
 		}
 		else if (fn == 34) { // SUB
-			Sub(rd, rs, rt);
+			sub(rd, rs, rt);
 		}
 		else if (fn == 36) { // AND
-			And(rd, rs, rt);
+			and(rd, rs, rt);
 		}
 		else if (fn == 37) { // OR
-			Or(rd, rs, rt);
+			or(rd, rs, rt);
 		}
 		else if (fn == 38) { // XOR
-			Xor(rd, rs, rt);
+			xor(rd, rs, rt);
 		}
 		else if (fn == 39) { // NOR
-			Nor(rd, rs, rt);
+			nor(rd, rs, rt);
 		}
 		else if (fn == 42) { // SLT
-			Slt(rd, rs, rt);
+			slt(rd, rs, rt);
 		}
 		else if (fn == 0) { // SLL
 			sh = getSh(IR);
-			Sll(rd, sh, rt);
+			sll(rd, sh, rt);
 		}
 		else if (fn == 2) { // SRL
 			sh = getSh(IR);
-			Srl(rd, sh, rt);
+			srl(rd, sh, rt);
 		}
 		else if (fn == 3) { // SRA
 			sh = getSh(IR);
-			Sra(rd, sh, rt);
+			sra(rd, sh, rt);
 		}
 		else if (fn == 24) { // MUL
-			Mult(rs, rt);
+			mult(rs, rt);
 		}
 		else if (fn == 8) { // jr
 
