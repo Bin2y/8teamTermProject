@@ -41,7 +41,8 @@ enum REGISTER_ENUM
   $fp,
   $ra
 };
-const int PC = 0x4000000;
+int PC = 0x400000;
+int SP = 0x80000000;
 int HI = 0;
 int LO = 0;
 unsigned int R[32]; // register
@@ -72,7 +73,11 @@ void resetRegister()
     REG(i, 0, WR);
   }
 }
-
+void setPC(unsigned int val)
+{
+  PC = val;
+  return 0;
+}
 void viewRegister()
 {
   printf("pc : %8x\n", PC);
