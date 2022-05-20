@@ -7,7 +7,6 @@
 ```cpp
 #include "stdio.h"
 
-
 unsigned int IR; // step() 에서 사용하는 변수
 
 unsigned int getOp(unsigned int IR) {
@@ -39,7 +38,7 @@ unsigned int getJOffset(unsigned int IR) { // 26비트, J type - j
 }
 
 
-void step(void) {
+int step(void) {
 	unsigned int op, fn, rs, rt, rd, offset;
 	IR = MEM(PC, 0, 0, 2); PC += 4;
 	// instruction decode
@@ -49,37 +48,40 @@ void step(void) {
 		fn = getFn(IR); rs = getRs(IR);
 		rt = getRt(IR); rd = getRd(IR);
 		if (fn == 32) { // ADD
-			R[rd] = ALU(ADD, R[rs], R[rt]); // ADD 는 ALU를 위해 만들어진 enum fctType 
+			return add(rd, rs, rt);
 		}
 		else if (fn == 34) { // SUB
-
+			return sub(rd, rs, rt);
 		}
 		else if (fn == 36) { // AND
-
+			return and(rd, rs, rt);
 		}
 		else if (fn == 37) { // OR
-
+			return or(rd, rs, rt);
 		}
 		else if (fn == 38) { // XOR
-
+			return xor(rd, rs, rt);
 		}
 		else if (fn == 39) { // NOR
-
+			return nor(rd, rs, rt);
 		}
 		else if (fn == 42) { // SLT
-
+			return slt(rd, rs, rt);
 		}
 		else if (fn == 0) { // SLL
-
+			sh = getSh(IR);
+			return sll(rd, sh, rt);
 		}
 		else if (fn == 2) { // SRL
-
+			sh = getSh(IR);
+			return srl(rd, sh, rt);
 		}
 		else if (fn == 3) { // SRA
-
+			sh = getSh(IR);
+			return sra(rd, sh, rt);
 		}
 		else if (fn == 24) { // MUL
-
+			return mult(rs, rt);
 		}
 		else if (fn == 8) { // jr
 
@@ -151,6 +153,8 @@ void step(void) {
 	printf("Undefined Inst...");
 	goto STOP; 
 	}
+	
+	return 1;
 
 }
 ```

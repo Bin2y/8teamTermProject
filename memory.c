@@ -1,3 +1,10 @@
+
+const enum accessType { READ, WRITE };
+enum accessSize { BYTE, HALF_WORD, WORD };
+
+const int M_SIZE = 0x100000;
+unsigned char progMEM[0x100000], dataMEM[0x100000], stackMEM[0x100000];
+
 int MEM(unsigned int A, int V, int nRW, int S)
 {
   unsigned int sel = A >> 20;
@@ -42,4 +49,14 @@ int MEM(unsigned int A, int V, int nRW, int S)
   }
 
   return 0;
+}
+
+void resetMem(void)
+{
+	int i;
+	for (i = 0; i < 0x100000; i++) {
+		progMEM[i] = 0;
+		dataMEM[i] = 0;
+		stackMEM[i] = 0;
+	}
 }
