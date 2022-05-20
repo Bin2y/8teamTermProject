@@ -7,49 +7,6 @@
 ```cpp
 #include "stdio.h"
 
-// instruction execution
-
-// Add ~ Mult : ALU.c 와 register.c 사용
-void Add(int rd, int rs, int rt) {
-	R[rd] = ALU(ADD, R[rs], R[rt]); 
-}
-void Sub(int rd, int rs, int rt) {
-	R[rd] = ALU(SUB, R[rs], R[rt]); 
-}
-void And(int rd, int rs, int rt) {
-	R[rd] = ALU(AND, R[rs], R[rt]);
-}
-void Or(int rd, int rs, int rt) {
-	R[rd] = ALU(OR, R[rs], R[rt]);
-}
-void Xor(int rd, int rs, int rt) {
-	R[rd] = ALU(XOR, R[rs], R[rt]);
-}
-void Nor(int rd, int rs, int rt) {
-	R[rd] = ALU(NOR, R[rs], R[rt]);
-}
-void Slt(int rd, int rs, int rt) {
-	R[rd] = ALU(SLT, R[rs], R[rt]);
-}
-void Sll(int rd, int sh, int rt) {
-	R[rd] = ALU(SLL, sh, R[rt]);
-}
-void Srl(int rd, int sh, int rt) {
-	R[rd] = ALU(SRL, sh, R[rt]);
-}
-void Sra(int rd, int sh, int rt) {
-	R[rd] = ALU(SRA, sh, R[rt]);
-}
-void Mult(int rs, int rt) {
-	long long result;
-	result = ALU(MUL, R[rs], R[rt]);
-	HI = result >> 32; // register에서 정의된 변수 HI
-	LO = result & 0x00000000FFFFFFFF; // register에서 정의된 변수 LO
-}
-
-
-
-
 unsigned int IR; // step() 에서 사용하는 변수
 
 unsigned int getOp(unsigned int IR) {
