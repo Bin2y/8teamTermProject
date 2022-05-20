@@ -38,7 +38,7 @@ unsigned int getJOffset(unsigned int IR) { // 26비트, J type - j
 }
 
 
-void step(void) {
+int step(void) {
 	unsigned int op, fn, rs, rt, rd, offset;
 	IR = MEM(PC, 0, 0, 2); PC += 4;
 	// instruction decode
@@ -48,40 +48,40 @@ void step(void) {
 		fn = getFn(IR); rs = getRs(IR);
 		rt = getRt(IR); rd = getRd(IR);
 		if (fn == 32) { // ADD
-			add(rd, rs, rt);
+			return add(rd, rs, rt);
 		}
 		else if (fn == 34) { // SUB
-			sub(rd, rs, rt);
+			return sub(rd, rs, rt);
 		}
 		else if (fn == 36) { // AND
-			and(rd, rs, rt);
+			return and(rd, rs, rt);
 		}
 		else if (fn == 37) { // OR
-			or(rd, rs, rt);
+			return or(rd, rs, rt);
 		}
 		else if (fn == 38) { // XOR
-			xor(rd, rs, rt);
+			return xor(rd, rs, rt);
 		}
 		else if (fn == 39) { // NOR
-			nor(rd, rs, rt);
+			return nor(rd, rs, rt);
 		}
 		else if (fn == 42) { // SLT
-			slt(rd, rs, rt);
+			return slt(rd, rs, rt);
 		}
 		else if (fn == 0) { // SLL
 			sh = getSh(IR);
-			sll(rd, sh, rt);
+			return sll(rd, sh, rt);
 		}
 		else if (fn == 2) { // SRL
 			sh = getSh(IR);
-			srl(rd, sh, rt);
+			return srl(rd, sh, rt);
 		}
 		else if (fn == 3) { // SRA
 			sh = getSh(IR);
-			sra(rd, sh, rt);
+			return sra(rd, sh, rt);
 		}
 		else if (fn == 24) { // MUL
-			mult(rs, rt);
+			return mult(rs, rt);
 		}
 		else if (fn == 8) { // jr
 
@@ -153,6 +153,8 @@ void step(void) {
 	printf("Undefined Inst...");
 	goto STOP; 
 	}
+	
+	return 1;
 
 }
 ```
