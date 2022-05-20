@@ -62,42 +62,55 @@ int sw(int rt, int val, int rs)
 }
 
 
+
 // Add ~ Mult : ALU.c 와 register.c 사용
-void add(int rd, int rs, int rt) {
+
+int add(int rd, int rs, int rt) {
 	R[rd] = ALU(ADD, R[rs], R[rt]); 
+	return 0;
 }
-void sub(int rd, int rs, int rt) {
+int sub(int rd, int rs, int rt) {
 	R[rd] = ALU(SUB, R[rs], R[rt]); 
+	return 0;
 }
-void and(int rd, int rs, int rt) {
+int and(int rd, int rs, int rt) {
 	R[rd] = ALU(AND, R[rs], R[rt]);
+	return 0;
 }
-void or(int rd, int rs, int rt) {
+int or(int rd, int rs, int rt) {
 	R[rd] = ALU(OR, R[rs], R[rt]);
+	return 0;
 }
-void xor(int rd, int rs, int rt) {
+int xor(int rd, int rs, int rt) {
 	R[rd] = ALU(XOR, R[rs], R[rt]);
+	return 0;
 }
-void nor(int rd, int rs, int rt) {
+int nor(int rd, int rs, int rt) {
 	R[rd] = ALU(NOR, R[rs], R[rt]);
+	return 0;
 }
-void slt(int rd, int rs, int rt) {
+int slt(int rd, int rs, int rt) {
 	R[rd] = ALU(SLT, R[rs], R[rt]);
+	return 0;
 }
-void sll(int rd, int sh, int rt) {
+int sll(int rd, int sh, int rt) {
 	R[rd] = ALU(SLL, sh, R[rt]);
+	return 0;
 }
-void srl(int rd, int sh, int rt) {
+int srl(int rd, int sh, int rt) {
 	R[rd] = ALU(SRL, sh, R[rt]);
+	return 0;
 }
-void sra(int rd, int sh, int rt) {
+int sra(int rd, int sh, int rt) {
 	R[rd] = ALU(SRA, sh, R[rt]);
+	return 0;
 }
-void mult(int rs, int rt) {
+int mult(int rs, int rt) {
 	long long result;
 	result = ALU(MUL, R[rs], R[rt]);
 	HI = result >> 32; // register에서 정의된 변수 HI
 	LO = result & 0x00000000FFFFFFFF; // register에서 정의된 변수 LO
+	return 0;
 }
 
 
