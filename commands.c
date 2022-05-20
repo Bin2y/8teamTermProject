@@ -1,12 +1,3 @@
-## Step()
-현재 op, fn에 따라 분기하는 부분만 구현됨
-### 앞으로 구현해야  것
-* goto STOP; 부분이 우리가 원하는 동작을 하도록 만들기
-* 각 명령어 실행
-
-```cpp
-#include "stdio.h"
-
 unsigned int IR; // step() 에서 사용하는 변수
 
 unsigned int getOp(unsigned int IR) {
@@ -157,4 +148,4 @@ int step(void) {
 	return 1;
 
 }
-```
+
