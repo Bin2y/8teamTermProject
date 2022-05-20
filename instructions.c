@@ -60,3 +60,44 @@ int sw(int rt, int val, int rs)
   MEM(val + R[rs], R[rt], WR, WORD);
   return 0;
 }
+
+
+// Add ~ Mult : ALU.c 와 register.c 사용
+void add(int rd, int rs, int rt) {
+	R[rd] = ALU(ADD, R[rs], R[rt]); 
+}
+void sub(int rd, int rs, int rt) {
+	R[rd] = ALU(SUB, R[rs], R[rt]); 
+}
+void and(int rd, int rs, int rt) {
+	R[rd] = ALU(AND, R[rs], R[rt]);
+}
+void or(int rd, int rs, int rt) {
+	R[rd] = ALU(OR, R[rs], R[rt]);
+}
+void xor(int rd, int rs, int rt) {
+	R[rd] = ALU(XOR, R[rs], R[rt]);
+}
+void nor(int rd, int rs, int rt) {
+	R[rd] = ALU(NOR, R[rs], R[rt]);
+}
+void slt(int rd, int rs, int rt) {
+	R[rd] = ALU(SLT, R[rs], R[rt]);
+}
+void sll(int rd, int sh, int rt) {
+	R[rd] = ALU(SLL, sh, R[rt]);
+}
+void srl(int rd, int sh, int rt) {
+	R[rd] = ALU(SRL, sh, R[rt]);
+}
+void sra(int rd, int sh, int rt) {
+	R[rd] = ALU(SRA, sh, R[rt]);
+}
+void mult(int rs, int rt) {
+	long long result;
+	result = ALU(MUL, R[rs], R[rt]);
+	HI = result >> 32; // register에서 정의된 변수 HI
+	LO = result & 0x00000000FFFFFFFF; // register에서 정의된 변수 LO
+}
+
+
