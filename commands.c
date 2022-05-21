@@ -175,7 +175,7 @@ void loading(char* bFileName) {
 
 	err = fopen_s(&bFile, bFileName, "rb");
 	if (err) {
-		printf("[DEBUG] 바이너리 파일을 열 수 없음\n");
+		printf("[ERROR] 바이너리 파일을 열 수 없음\n");
 		return;
 	}
 
