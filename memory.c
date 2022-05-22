@@ -20,7 +20,7 @@ int MEM(unsigned int A, int V, int nRW, int S)
     pM = stackMEM; // stack
   else
   {
-    printError("[ERROR] 잘못된 메모리 접근\n");
+    printf("[ERROR] 잘못된 메모리 접근\n");
     return -1;
   }
 
@@ -51,12 +51,30 @@ int MEM(unsigned int A, int V, int nRW, int S)
   return 0;
 }
 
+// 메모리 보기
+void viewMemory(unsigned int start, unsigned int end)
+{
+  for (int i = start; i <= end; i += 4)
+  {
+    int v = MEM(i, 0, READ, WORD);
+    printf("%8x : %9x |\n", i, v);
+  }
+}
+
+// 메모리 리셋
 void resetMem(void)
 {
-	int i;
-	for (i = 0; i < 0x100000; i++) {
-		progMEM[i] = 0;
-		dataMEM[i] = 0;
-		stackMEM[i] = 0;
-	}
+  int i;
+  for (i = 0; i < 0x100000; i++)
+  {
+    progMEM[i] = 0;
+    dataMEM[i] = 0;
+    stackMEM[i] = 0;
+  }
+}
+
+// 메모리 세팅
+void setMemory(unsigned int address, int value)
+{
+  MEM(address, value, WRITE, WORD);
 }
