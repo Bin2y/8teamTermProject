@@ -73,26 +73,3 @@ void resetRegister()
     REG(i, 0, WR);
   }
 }
-void setPC(unsigned int val)
-{
-  PC = val;
-  return 0;
-}
-void viewRegister()
-{
-  printf("pc : %8x\n", PC);
-  printf("HI : %8x\n", HI);
-  printf("LO : %8x\n", LO);
-
-  for (int i = 0; i < R_SIZE; i++)
-  {
-    unsigned int v = REG(i, 0, RD);
-    printf("R[%d] : %8x\n", i, v); // test용으로 설정해놓은 값
-  }
-}
-int main()
-{
-  resetRegister();
-  viewRegister();
-  return 0;
-}
