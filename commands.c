@@ -223,10 +223,22 @@ void loading(char* bFileName) {
 	
 }
 
-// 9주차 강의 자료에 있는 코드
-void setPC(unsigned int val) {
-	PC = val;
-	return;
+void setPC(unsigned int val)
+{
+  PC = val;
+  return 0;
+}
+void viewRegister()
+{
+  printf("pc : %8x\n", PC);
+  printf("HI : %8x\n", HI);
+  printf("LO : %8x\n", LO);
+
+  for (int i = 0; i < R_SIZE; i++)
+  {
+    unsigned int v = REG(i, 0, RD);
+    printf("R[%d] : %8x\n", i, v); // test용으로 설정해놓은 값
+  }
 }
 
 void jump(int address) {
