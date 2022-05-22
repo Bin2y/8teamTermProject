@@ -113,4 +113,61 @@ int mult(int rs, int rt) {
 	return 0;
 }
 
+// bltz,j,jal,beq,bne
+// mfhi,mflo
+// jr
+
+int j(int address)
+{
+  PC = (PC & 0xF0000000) | (address << 2); // register의 PC값
+  return 0;
+}
+
+int jal(int address)
+{
+  PC = (PC & 0xF0000000) | (address << 2);
+  R[$ra] = PC + 4; // 다음 명령어의 주소를 $ra에 넣음
+  return 0;
+}
+
+int bltz(int rs, int rt, int val)
+{
+  if (R[rs] < R[rt])
+    PC += val * 4;
+  return 0;
+}
+
+int beq(int rs, int rt, int val)
+{
+
+  if (R[rs] == R[rt])
+    PC += val * 4;
+  return 0;
+}
+
+int bne(int rs, int rt, int val)
+{
+
+  if (R[rs] != R[rt])
+    PC += val * 4;
+  return 0;
+}
+
+int mfhi(int rd)
+{
+  R[rd] = HI; // register의 HI값
+  return 0;
+}
+
+int mflo(int rd)
+{
+  R[rd] = LO; // register의 LO값
+  return 0;
+}
+
+int jr(int rs)
+{
+  PC = R[rs];
+  return 0;
+}
 
