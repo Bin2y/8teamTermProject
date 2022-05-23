@@ -183,3 +183,14 @@ int jr(int rs)
   PC = R[rs];
   return 0;
 }
+
+int syscall()
+{
+  if (R[$v0] == 10)
+  {
+    printf("Exit program\n");
+    return 1;
+  }
+  else
+    return 0;
+}
