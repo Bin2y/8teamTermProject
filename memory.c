@@ -51,15 +51,7 @@ int MEM(unsigned int A, int V, int nRW, int S)
   return 0;
 }
 
-// 메모리 보기
-void viewMemory(unsigned int start, unsigned int end)
-{
-  for (int i = start; i <= end; i += 4)
-  {
-    int v = MEM(i, 0, READ, WORD);
-    printf("%8x : %9x |\n", i, v);
-  }
-}
+
 
 // 메모리 리셋
 void resetMem(void)
@@ -73,8 +65,4 @@ void resetMem(void)
   }
 }
 
-// 메모리 세팅
-void setMemory(unsigned int address, int value)
-{
-  MEM(address, value, WRITE, WORD);
-}
+
