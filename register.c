@@ -73,3 +73,8 @@ void resetRegister()
     REG(i, 0, WR);
   }
 }
+
+void setRegister(unsigned int num, int val)
+{
+  REG(num, val, WR);
+}
