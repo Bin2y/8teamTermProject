@@ -256,8 +256,8 @@ unsigned int invertEndian(unsigned int data)
 	return *(unsigned int*)c;
 }
 
-// memory.c »ç¿ë, register.c »ç¿ë
-// ¹ÙÀÌ³Ê¸® ÆÄÀÏÀ» ÀĞ¾î¼­ memory¿¡ loading ÇÏ°í  PC, SP¸¦ ÃÊ±âÈ­ÇÏ´Â ÇÔ¼ö
+// memory.c ì‚¬ìš©, register.c ì‚¬ìš©
+// ë°”ì´ë„ˆë¦¬ íŒŒì¼ì„ ì½ì–´ì„œ memoryì— loading í•˜ê³   PC, SPë¥¼ ì´ˆê¸°í™”í•˜ëŠ” í•¨ìˆ˜
 void loading(char* bFileName)
 {
 	FILE* bFile;
@@ -272,7 +272,7 @@ void loading(char* bFileName)
 	err = fopen_s(&bFile, bFileName, "rb");
 	if (err)
 	{
-		printf("[ERROR] ¹ÙÀÌ³Ê¸® ÆÄÀÏÀ» ¿­ ¼ö ¾øÀ½\n");
+		printf("[ERROR] ë°”ì´ë„ˆë¦¬ íŒŒì¼ì„ ì—´ ìˆ˜ ì—†ìŒ\n");
 		return;
 	}
 
@@ -305,12 +305,12 @@ void loading(char* bFileName)
 	PC = 0x00400000;
 	SP = 0x80000000;
 
-	// µğ¹ö±ëÀ»  À§ÇÑ ÄÚµå
+	// ë””ë²„ê¹…ì„  ìœ„í•œ ì½”ë“œ
 	addr = 0x00400000;
 	for (int i = 0; i < (int)iCount; i++)
 	{
 		data = MEM(addr, 0, READ, WORD);
-		printf("(test) PROG WORD RD: A=%08x, %02x\n", addr, data);
+		printf("PROG WORD RD: A=%08x, %02x\n", addr, data);
 		addr += 4;
 	}
 	printf("\n");
@@ -318,7 +318,7 @@ void loading(char* bFileName)
 	for (int i = 0; i < (int)dCount; i++)
 	{
 		data = MEM(addr, 0, READ, WORD);
-		printf("(test) DATA WORD RD: A=%08x, %02x\n", addr, data);
+		printf("DATA WORD RD: A=%08x, %02x\n", addr, data);
 		addr += 4;
 	}
 }
@@ -333,12 +333,12 @@ void jump(int address)
 {
 	if (address < 0x400000 || address >= 0x10000000)
 	{
-		printf("[ERROR] Àß¸øµÈ ÁÖ¼Ò ÀÔ·Â (Program ÁÖ¼Ò´Â 0x400000 ~ 0x10000000)\n");
+		printf("[ERROR] ì˜ëª»ëœ ì£¼ì†Œ ì…ë ¥ (Program ì£¼ì†ŒëŠ” 0x400000 ~ 0x10000000)\n");
 	}
 	else
 	{
 		setPC(address);
-		printf("[Jump program] PC ÁÖ¼Ò: 0x%X\n", address);
+		printf("[Jump program] PC ì£¼ì†Œ: 0x%X\n", address);
 	}
 }
 
@@ -351,7 +351,7 @@ void viewRegister()
 	for (int i = 0; i < R_SIZE; i++)
 	{
 		unsigned int v = REG(i, 0, RD);
-		printf("R[%d] : 0x%8x\n", i, v); // test¿ëÀ¸·Î ¼³Á¤ÇØ³õÀº °ª
+		printf("R[%d] : 0x%8x\n", i, v); // testìš©ìœ¼ë¡œ ì„¤ì •í•´ë†“ì€ ê°’
 	}
 }
 
@@ -361,7 +361,7 @@ void setRegister(unsigned int num, int val)
 }
 
 
-// ¸Ş¸ğ¸® º¸±â
+// ë©”ëª¨ë¦¬ ë³´ê¸°
 void viewMemory(unsigned int start, unsigned int end)
 {
 	for (unsigned int i = start; i <= end; i += 4)
@@ -370,7 +370,7 @@ void viewMemory(unsigned int start, unsigned int end)
 		printf("0x%8x : 0x%9x |\n", i, v);
 	}
 }
-// ¸Ş¸ğ¸® ¼¼ÆÃ
+// ë©”ëª¨ë¦¬ ì„¸íŒ…
 void setMemory(unsigned int address, int value)
 {
 	MEM(address, value, WRITE, WORD);
