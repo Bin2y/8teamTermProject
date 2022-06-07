@@ -1,11 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "commands.h"
-// as_ex01_arith.bin
-// as_ex02_logic.bin
-// as_ex03_ifelse.bin
-// as_ex04_fct.bin
 
 // console i/o 만들기. 
 int main(void) {
