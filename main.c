@@ -7,31 +7,31 @@
 // as_ex03_ifelse.bin
 // as_ex04_fct.bin
 
-// console i/o ¸¸µé±â. 
+// console i/o ë§Œë“¤ê¸°. 
 int main(void) {
 	char inputStr[100];
 	char* token = NULL;
-	char* context = NULL; // strtok_s ¿¡¼­ »ç¿ë
-	char* ptr = NULL; // strtoul ¿¡¼­ »ç¿ë
+	char* context = NULL; // strtok_s ì—ì„œ ì‚¬ìš©
+	char* ptr = NULL; // strtoul ì—ì„œ ì‚¬ìš©
 
 	while (1) {
 		
-		printf("¸í·É¾î¸¦ ÀÔ·ÂÇÏ¼¼¿ä: ");
+		printf("ëª…ë ¹ì–´ë¥¼ ì…ë ¥í•˜ì„¸ìš”: ");
 		gets(inputStr);
 		
 		token = strtok_s(inputStr, " ", &context);
 		if (token == NULL) {
-			printf("[ERROR] Àß¸øµÈ ¸í·É¾î ÀÔ·Â\n");
+			printf("[ERROR] ì˜ëª»ëœ ëª…ë ¹ì–´ ì…ë ¥\n");
 			continue;
 		}
 		// Load program
 		if (strcmp(token, "l") == 0) {
 			token = strtok_s(NULL, " ", &context);
 			if (token == NULL) {
-				printf("[ERROR] ÆÄÀÏ ÀÌ¸§À» °°ÀÌ ÀÔ·ÂÇØÁÖ¼¼¿ä.\n");
+				printf("[ERROR] íŒŒì¼ ì´ë¦„(ê²½ë¡œ)ì„ ê°™ì´ ì…ë ¥í•´ì£¼ì„¸ìš”.\n");
 				continue;
 			}
-			printf("[Load program] ÆÄÀÏ ÀÌ¸§: %s\n", token);
+			printf("[Load program] íŒŒì¼ ì´ë¦„: %s\n", token);
 			loading(token);
 		}
 		// Jump program
@@ -39,10 +39,10 @@ int main(void) {
 			int address;
 			token = strtok_s(NULL, " ", &context);
 			if (token == NULL) {
-				printf("[ERROR] PC ÁÖ¼Ò¸¦ °°ÀÌ ÀÔ·ÂÇØÁÖ¼¼¿ä.\n");
+				printf("[ERROR] PC ì£¼ì†Œë¥¼ ê°™ì´ ì…ë ¥í•´ì£¼ì„¸ìš”.\n");
 				continue;
 			}
-			address = strtoul(token, &ptr, 16); // ÁÖ¼Ò¸¦ 16Áø¼ö·Î ÀÔ·Â¹Ş±â
+			address = strtoul(token, &ptr, 16); // ì£¼ì†Œë¥¼ 16ì§„ìˆ˜ë¡œ ì…ë ¥ë°›ê¸°
 			printf("[Jump program] PC: 0x%X\n", address);
 			jump(address);
 		}
@@ -58,16 +58,16 @@ int main(void) {
 		}
 		// View memory
 		else if (strcmp(token, "m") == 0) {
-			int start, end;		// start, end ÁÖ¼Ò ¿ª½Ã 16Áø¼ö·Î ÀÔ·Â
+			int start, end;		// start, end ì£¼ì†Œ ì—­ì‹œ 16ì§„ìˆ˜ë¡œ ì…ë ¥
 			token = strtok_s(NULL, " ", &context);
 			if (token == NULL) {
-				printf("[ERROR] start ÁÖ¼Ò¿Í end ÁÖ¼Ò¸¦ °°ÀÌ ÀÔ·ÂÇØÁÖ¼¼¿ä.\n");
+				printf("[ERROR] start ì£¼ì†Œì™€ end ì£¼ì†Œë¥¼ ê°™ì´ ì…ë ¥í•´ì£¼ì„¸ìš”.\n");
 				continue;
 			}
 			start = strtoul(token, &ptr, 16);
 			token = strtok_s(NULL, " ", &context);
 			if (token == NULL) {
-				printf("[ERROR] end ÁÖ¼Ò¸¦ °°ÀÌ ÀÔ·ÂÇØÁÖ¼¼¿ä.\n");
+				printf("[ERROR] end ì£¼ì†Œë¥¼ ê°™ì´ ì…ë ¥í•´ì£¼ì„¸ìš”.\n");
 				continue;
 			}
 			end = strtoul(token, &ptr, 16);
@@ -86,43 +86,43 @@ int main(void) {
 		}
 		// Set register
 		else if (strcmp(token, "sr") == 0) {
-			int regnum, value; // ·¹Áö½ºÅÍ ¹øÈ£´Â 10Áø¼ö·Î, ¼³Á¤ÇÒ °ªÀº 16Áø¼ö·Î
+			int regnum, value; // ë ˆì§€ìŠ¤í„° ë²ˆí˜¸ëŠ” 10ì§„ìˆ˜ë¡œ, ì„¤ì •í•  ê°’ì€ 16ì§„ìˆ˜ë¡œ
 			token = strtok_s(NULL, " ", &context);
 			if (token == NULL) {
-				printf("[ERROR] ·¹Áö½ºÅÍ ¹øÈ£¿Í ¼³Á¤ÇÒ °ªÀ» °°ÀÌ ÀÔ·ÂÇØÁÖ¼¼¿ä.\n");
+				printf("[ERROR] ë ˆì§€ìŠ¤í„° ë²ˆí˜¸ì™€ ì„¤ì •í•  ê°’ì„ ê°™ì´ ì…ë ¥í•´ì£¼ì„¸ìš”.\n");
 				continue;
 			}
 			regnum = strtoul(token, &ptr, 10);
 			token = strtok_s(NULL, " ", &context);
 			if (token == NULL) {
-				printf("[ERROR] ¼³Á¤ÇÒ °ªÀ» °°ÀÌ ÀÔ·ÂÇØÁÖ¼¼¿ä.\n");
+				printf("[ERROR] ì„¤ì •í•  ê°’ì„ ê°™ì´ ì…ë ¥í•´ì£¼ì„¸ìš”.\n");
 				continue;
 			}
 			value = strtoul(token, &ptr, 16);
 
-			printf("[Set register] R[%d] ¸¦ %d ·Î ¼³Á¤\n", regnum, value);
+			printf("[Set register] R[%d] ë¥¼ %d ë¡œ ì„¤ì •\n", regnum, value);
 			setRegister(regnum, value);
 		}
 		// Set memory
 		else if (strcmp(token, "sm") == 0) {
-			int location, value; // ¸Ş¸ğ¸® ÁÖ¼Ò¿Í ¼³Á¤ÇÒ °ªÀ» 16Áø¼ö·Î
+			int location, value; // ë©”ëª¨ë¦¬ ì£¼ì†Œì™€ ì„¤ì •í•  ê°’ì„ 16ì§„ìˆ˜ë¡œ
 			token = strtok_s(NULL, " ", &context);
 			if (token == NULL) {
-				printf("[ERROR] ¸Ş¸ğ¸® ÁÖ¼Ò¿Í ¼³Á¤ÇÒ °ªÀ» °°ÀÌ ÀÔ·ÂÇØÁÖ¼¼¿ä.\n");
+				printf("[ERROR] ë©”ëª¨ë¦¬ ì£¼ì†Œì™€ ì„¤ì •í•  ê°’ì„ ê°™ì´ ì…ë ¥í•´ì£¼ì„¸ìš”.\n");
 				continue;
 			}
 			location = strtoul(token, &ptr, 16);
 			token = strtok_s(NULL, " ", &context);
 			if (token == NULL) {
-				printf("[ERROR] ¼³Á¤ÇÒ °ªÀ» °°ÀÌ ÀÔ·ÂÇØÁÖ¼¼¿ä.\n");
+				printf("[ERROR] ì„¤ì •í•  ê°’ì„ ê°™ì´ ì…ë ¥í•´ì£¼ì„¸ìš”.\n");
 				continue;
 			}
 			value = strtoul(token, &ptr, 16);
-			printf("[Set memory] Memory 0x%X ¹øÁö¸¦ %d ·Î ¼³Á¤\n", location, value);
+			printf("[Set memory] Memory 0x%X ë²ˆì§€ë¥¼ %d ë¡œ ì„¤ì •\n", location, value);
 			setMemory(location, value);
 		}
 		else {
-			printf("[ERROR] Àß¸øµÈ ¸í·É¾î ÀÔ·Â\n");
+			printf("[ERROR] ì˜ëª»ëœ ëª…ë ¹ì–´ ì…ë ¥\n");
 		}
 	}
 	return 0;
