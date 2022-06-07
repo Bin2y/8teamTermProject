@@ -1,7 +1,6 @@
 #include "instructions.h"
 extern unsigned int IR;
 extern unsigned int PC;
-extern unsigned int SP;
 
 unsigned int getOp(unsigned int IR);
 unsigned int getFn(unsigned int IR);
