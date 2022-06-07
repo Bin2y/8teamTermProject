@@ -4,6 +4,12 @@
 * master branch에 있던 코드들을 토대로 통합한 코드들이 있습니다.
 * 개발 환경은 visual studio 를 사용하였습니다.
 
+
+## 문제 해결 : as_ex04_fct.bin 가 정상동작하지 않는 문제 (6월 7일에 발견하여 당일 해결)
+1. IR 을 offset, joffset으로 자를 때 모두 부호가 없는 숫자로 만들어지는 문제가 있었다. shift와 (int) 형변환을 사용하여 해결하였다.
+2. resetRegiseter() 에서 R[$sp] 를 초기화하지 않았다. R[$sp] 를 초기화하는 코드를 추가하고 loading() 에 resetRegister() 를 추가하여 해결하였다.
+3. register.h 의 REGISTER_ENUM 에서 중간에 $s5 가 선언되지 않는 바람에 R[$ra] 가 R[30] 으로 인식되는 등의 문제가 있었다. 추가하여 해결하였다.
+
 ## 파일 관계
 ### register.c
 +  "register.h"를 include합니다.
