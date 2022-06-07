@@ -1,5 +1,3 @@
-#include "commands.h"
-#include <stdio.h>
 
 unsigned int getOp(unsigned int IR)
 {
@@ -29,12 +27,12 @@ unsigned int getSh(unsigned int IR)
 
 unsigned int getOffset(unsigned int IR)
 { 
-	return (int)(IR << 16) >> 16;
+	return IR & 0x0000FFFF;
 }
 
 unsigned int getJOffset(unsigned int IR)
 {
-	return (int)(IR << 6) >> 6;
+	return IR & 0x03FFFFFF;
 }
 
 
