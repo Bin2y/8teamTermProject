@@ -83,7 +83,7 @@ int sw(int rt, int val, int rs)
     return 0;
 }
 
-// Add ~ Mult : ALU.c ¿Í register.c »ç¿ë
+// Add ~ Mult : ALU.c ì™€ register.c ì‚¬ìš©
 
 int add(int rd, int rs, int rt)
 {
@@ -148,8 +148,8 @@ int mult(int rs, int rt)
 {
     long long result;
     result = ALU(MUL, R[rs], R[rt]);
-    HI = result >> 32;                // register¿¡¼­ Á¤ÀÇµÈ º¯¼ö HI
-    LO = result & 0x00000000FFFFFFFF; // register¿¡¼­ Á¤ÀÇµÈ º¯¼ö LO
+    HI = result >> 32;                // registerì—ì„œ ì •ì˜ëœ ë³€ìˆ˜ HI
+    LO = result & 0x00000000FFFFFFFF; // registerì—ì„œ ì •ì˜ëœ ë³€ìˆ˜ LO
     printf("[DEBUG] Register Changed : HI = 0x%8x\n", HI);
     printf("[DEBUG] Register Changed : LO = 0x%8x\n", LO);
     return 0;
@@ -161,19 +161,28 @@ int mult(int rs, int rt)
 
 int j(int address)
 {
-    PC = (PC & 0xF0000000) | (address << 2); // registerÀÇ PC°ª
+    PC = (PC & 0xF0000000) | (address << 2); // registerì˜ PCê°’
     printf("[DEBUG] PC Changed : PC = 0x%9x\n", PC);
     return 0;
 }
 
-int jal(int address)
-{
-    PC = (PC & 0xF0000000) | (address << 2);
-    R[$ra] = PC + 4; // ´ÙÀ½ ¸í·É¾îÀÇ ÁÖ¼Ò¸¦ $ra¿¡ ³ÖÀ½
+
+int jal(int address) {
+    R[$ra] = PC;
+    PC = ((PC + 4) & 0xf0000000) | (address << 2);
     printf("[DEBUG] PC Changed : PC = 0x%9x\n", PC);
     printf("[DEBUG] Register Changed : R[%d] = 0x%8x\n", $ra, R[$ra]);
     return 0;
 }
+
+//int jal(int address)
+//{
+//    PC = (PC & 0xF0000000) | (address << 2);
+//    R[$ra] = PC + 4; // ë‹¤ìŒ ëª…ë ¹ì–´ì˜ ì£¼ì†Œë¥¼ $raì— ë„£ìŒ
+//    printf("[DEBUG] PC Changed : PC = 0x%9x\n", PC);
+//    printf("[DEBUG] Register Changed : R[%d] = 0x%8x\n", $ra, R[$ra]);
+//    return 0;
+//}
 
 int bltz(int rs, int rt, int val)
 {
@@ -206,14 +215,14 @@ int bne(int rs, int rt, int val)
 
 int mfhi(int rd)
 {
-    R[rd] = HI; // registerÀÇ HI°ª
+    R[rd] = HI; // registerì˜ HIê°’
     printf("[DEBUG] Register Changed R[%d] = 0x%8x\n", rd, R[rd]);
     return 0;
 }
 
 int mflo(int rd)
 {
-    R[rd] = LO; // registerÀÇ LO°ª
+    R[rd] = LO; // registerì˜ LOê°’
     printf("[DEBUG] Register Changed R[%d] = 0x%8x\n", rd, R[rd]);
     return 0;
 }
