@@ -29,12 +29,12 @@ unsigned int getSh(unsigned int IR)
 
 unsigned int getOffset(unsigned int IR)
 { 
-	return (IR & 0x0000FFFF);
+	return (int)(IR << 16) >> 16;
 }
 
 unsigned int getJOffset(unsigned int IR)
 {
-	return (IR & 0x03FFFFFF);
+	return (int)(IR << 6) >> 6;
 }
 
 
@@ -282,6 +282,7 @@ void loading(char* bFileName)
 	dCount = invertEndian(data);
 
 	resetMem();
+	resetRegister();
 
 	addr = 0x00400000;
 	for (int i = 0; i < (int)iCount; i++)
@@ -303,7 +304,6 @@ void loading(char* bFileName)
 	}
 
 	PC = 0x00400000;
-	SP = 0x80000000;
 
 	// 디버깅을  위한 코드
 	addr = 0x00400000;
