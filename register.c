@@ -2,8 +2,7 @@
 #include <stdio.h>
 
 int PC = 0x400000;
-int SP = 0x80000000;
-unsigned int IR; // step() ¿¡¼­ »ç¿ëÇÏ´Â º¯¼ö
+unsigned int IR; // step() ì—ì„œ ì‚¬ìš©í•˜ëŠ” ë³€ìˆ˜
 int HI = 0;
 int LO = 0;
 
@@ -36,5 +35,8 @@ void resetRegister()
     {
         REG(i, 0, WR);
     }
+    R[29] = 0x80000000;
+
+    printf("%d", $zero);
 }
 
