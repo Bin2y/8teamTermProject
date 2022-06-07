@@ -2,7 +2,6 @@
 #include "memory.h"
 #include "register.h"
 extern unsigned int PC;
-extern unsigned int SP;
 extern int HI;
 extern int LO;
 
