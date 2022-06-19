@@ -4,45 +4,6 @@
 * master branch에 있던 코드들을 토대로 통합한 코드들이 있습니다.
 * 개발 환경은 visual studio 를 사용하였습니다.
 
-
-## 문제 해결 : as_ex04_fct.bin 가 정상동작하지 않는 문제 (6월 7일에 발견하여 당일 해결)
-1. IR 을 offset, joffset으로 자를 때 모두 부호가 없는 숫자로 만들어지는 문제가 있었다. shift와 (int) 형변환을 사용하여 해결하였다.
-2. resetRegiseter() 에서 R[$sp] 를 초기화하지 않았다. R[$sp] 를 초기화하는 코드를 추가하고 loading() 에 resetRegister() 를 추가하여 해결하였다.
-3. register.h 의 REGISTER_ENUM 에서 중간에 $s5 가 선언되지 않는 바람에 R[$ra] 가 R[30] 으로 인식되는 등의 문제가 있었다. 추가하여 해결하였다.
-
-## 파일 관계
-### register.c
-+  "register.h"를 include합니다.
-+  레지스터와 관련된 변수, 함수 등이 있습니다. 
-### register.h 
-+ R_SIZE, accessTypeR, REGISTER_ENUM, R[32], REG(), resetRegister() 가 선언되어 있습니다.
-### memory.c 
-+ "memory.h"를 include합니다.
-+  메모리와 관련된 변수, 함수 등이 있습니다.
-### memory.h 
-+ M_SIZE, accessTypeM, accessSize, progMEM[0x100000], dataMEM[0x100000], stackMEM[0x100000], MEM(), resetMem() 가 선언되어 있습니다.
-### ALU.c 
-+ "ALU.h" 를 include합니다.
-+ ALU 연산을 하여 연산 결과를 리턴해주는 함수 ALU() 가 있습니다.
-### ALU.h 
-+ fctType, ALU() 가 선언되어 있습니다.
-### instructions.c 
-+ "instructions.h" 를 include합니다.
-+  addi(), slti() 등 MIPS 명령어들을 실행시키는 함수들이 있습니다.
-### instructions.h
-+ "ALU.h", "memory.h", "register.h" 를 include합니다.
-+ PC, SP, HI, LO를 extern으로 받고 addi(), slti() 등의 함수들을 선언합니다.
-### commands.c 
-+ "commands.h" 를 include합니다.
-+  go(), step(), loading() 등 Simulator에서 사용하는 명령어들을 실행하는 함수들과 그러한 함수들이 사용하는 getOp(), invertEndian() 등의 함수들이 있습니다.
-### commands.h
-+ "instructions.h" 를 include합니다.
-+  IR, PC, SP를 extern으로 받습니다. go(), step(), getOp() 등의 함수들이 선언되어 있습니다.
-### main.c 
-+ "commands.h" 를 include합니다.
-+ 사용자로부터 시뮬레이터 명령어를 입력받아 오류 메시지를 출력하거나 commands.h에 선언된 함수들을 실행하는 main() 함수가 있습니다.
-
-
 ## 프로그램 사용 방법
 프로그램을 실행시키면
 ```
@@ -86,3 +47,42 @@
 * memory location과 value를 16진수로 받아 메모리 특정 주소의 값을 설정합니다.
 * `sm` 만 입력한 경우 메모리 주소와 설정할 값을 같이 입력해달라는 오류 메시지를, `sm <location>` 만 입력한 경우에는 설정할 값을 입력헤달라는 오류 메시지를 출력하고 사용자 명령어를 받는 상태로 돌아갑니다.
   
+
+## 문제 해결 : as_ex04_fct.bin 가 정상동작하지 않는 문제 (6월 7일에 발견하여 당일 해결)
+1. IR 을 offset, joffset으로 자를 때 모두 부호가 없는 숫자로 만들어지는 문제가 있었다. shift와 (int) 형변환을 사용하여 해결하였다.
+2. resetRegiseter() 에서 R[$sp] 를 초기화하지 않았다. R[$sp] 를 초기화하는 코드를 추가하고 loading() 에 resetRegister() 를 추가하여 해결하였다.
+3. register.h 의 REGISTER_ENUM 에서 중간에 $s5 가 선언되지 않는 바람에 R[$ra] 가 R[30] 으로 인식되는 등의 문제가 있었다. 추가하여 해결하였다.
+
+## 파일 관계
+### register.c
++  "register.h"를 include합니다.
++  레지스터와 관련된 변수, 함수 등이 있습니다. 
+### register.h 
++ R_SIZE, accessTypeR, REGISTER_ENUM, R[32], REG(), resetRegister() 가 선언되어 있습니다.
+### memory.c 
++ "memory.h"를 include합니다.
++  메모리와 관련된 변수, 함수 등이 있습니다.
+### memory.h 
++ M_SIZE, accessTypeM, accessSize, progMEM[0x100000], dataMEM[0x100000], stackMEM[0x100000], MEM(), resetMem() 가 선언되어 있습니다.
+### ALU.c 
++ "ALU.h" 를 include합니다.
++ ALU 연산을 하여 연산 결과를 리턴해주는 함수 ALU() 가 있습니다.
+### ALU.h 
++ fctType, ALU() 가 선언되어 있습니다.
+### instructions.c 
++ "instructions.h" 를 include합니다.
++  addi(), slti() 등 MIPS 명령어들을 실행시키는 함수들이 있습니다.
+### instructions.h
++ "ALU.h", "memory.h", "register.h" 를 include합니다.
++ PC, SP, HI, LO를 extern으로 받고 addi(), slti() 등의 함수들을 선언합니다.
+### commands.c 
++ "commands.h" 를 include합니다.
++  go(), step(), loading() 등 Simulator에서 사용하는 명령어들을 실행하는 함수들과 그러한 함수들이 사용하는 getOp(), invertEndian() 등의 함수들이 있습니다.
+### commands.h
++ "instructions.h" 를 include합니다.
++  IR, PC, SP를 extern으로 받습니다. go(), step(), getOp() 등의 함수들이 선언되어 있습니다.
+### main.c 
++ "commands.h" 를 include합니다.
++ 사용자로부터 시뮬레이터 명령어를 입력받아 오류 메시지를 출력하거나 commands.h에 선언된 함수들을 실행하는 main() 함수가 있습니다.
+
+
