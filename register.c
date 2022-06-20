@@ -37,6 +37,6 @@ void resetRegister()
     }
     R[29] = 0x80000000;
 
-    printf("%d", $zero);
+    //printf("%d", $zero); // 디버깅 때 사용한 
 }
 
